@@ -1,7 +1,8 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.6-220726dx",
+  "version": "0.0.7-220902",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev -p 4020",
     "build": "next build",

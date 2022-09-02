@@ -1,7 +1,8 @@
 <hr>
 <h1 align="center">flem-bd-dominio-api</h1>
 <p align=center><i align="center">API de conexão com o BD da Domínio, para o cliente FLEM</i></p>
-<hr>
+
+<br>
 
 <div align="center">
 
@@ -14,9 +15,14 @@
 <a href="">[![Fork](https://img.shields.io/github/forks/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/fork) </a>
 <a href="">![Version](https://img.shields.io/badge/version-0.0.1-005bff) </a>
 <a href="">[![license](https://img.shields.io/github/license/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/LICENSE)</a>
+
 <br>
 
 </div>
+
+<hr>
+
+<br>
 
 API que consome requisições das aplicações FLEM para o Banco de Dados de terceiros (Domínio Sistemas).
 
@@ -24,34 +30,52 @@ API que consome requisições das aplicações FLEM para o Banco de Dados de ter
 
 ## Conteúdo
 
-- [Objetivo](#objetivo)
-- [Características](#características)
-- [Especificações](#especificações)
-- [Stack](#stack)
-- [Documentação](#documentação)
-- [Notas de versão](#notas-de-versão)
-- [Como usar este repositório](#como-usar-este-repositório)
-  - [Variáveis de Ambiente](#variáveis-de-ambiente)
-- [Autores](#autores)
-- [Contato](#contato)
-- [Licença](#licença)
+- [Objetivo](#section-obj)
+- [Características](#section-carac)
+- [Especificações](#section-specs)
+- [Stack](#section-stack)
+- [Documentação](#section-docs)
+- [Como usar este repositório](#section-como-usar)
+  - [Variáveis de Ambiente](#section-vars)
+- [Notas de versão](#section-changelog)
+- [Autores](#section-autores)
+- [Contato](#section-contato)
+- [Licença](#section-licenca)
+
+<hr>
 
 <br>
 
+<a name="section-obj">
+
 ## Objetivo
+
+</a>
 
 - Fornecer uma API de alta performance e baixo custo computacional que consuma de maneira segura e estável os dados requisitados;
 - Manipular de maneira independente e com controle integrado dados provenientes do BD da Domínio.
 
+<hr>
+
 <br>
+
+<a name="section-carac">
 
 ## Características
 
+</a>
+
 - Facilita os processos resumindo todas as suas funcionalidades centradas no consumo dos dados sem comprometer a performance.
+
+<hr>
 
 <br>
 
+<a name="section-specs">
+
 ## Especificações
+
+</a>
 
 - **Tipo de Software:** Interface de Programação de Aplicações
 - **Distribuição:** Web
@@ -62,9 +86,15 @@ API que consome requisições das aplicações FLEM para o Banco de Dados de ter
 - **Dialeto de Banco de Dados:** SQL
 - **Disponibilidade de Código:** Open Source
 
+<hr>
+
 <br>
 
+<a name="section-stack">
+
 ## Stack
+
+</a>
 
 - **Linguagem Principal:** [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - **Framework Principal:** [Node.js](https://nodejs.org/en/docs/)
@@ -73,24 +103,35 @@ API que consome requisições das aplicações FLEM para o Banco de Dados de ter
 - **Gerenciador de Bibliotecas:** [Yarn](https://yarnpkg.com/getting-started)
 - **Bibliotecas:** Para uma lista completa de bibliotecas e dependências nos mais variados escopos, conferir o arquivo [package.json](https://github.com/frtechdev/flem-bd-dominio-api/blob/master/package.json).
 
+<hr>
+
 <br>
+
+<a name="section-docs">
 
 ## Documentação
 
+</a>
+
 Documentação adicional pode ser encontrada [aqui](https://frtechdev.github.io/flem-bd-dominio-api/).
 
+<hr>
+
 <br>
 
-## Notas de versão
-
-Para ver as notas de versão, clique [aqui](https://github.com/frtechdev/flem-bd-dominio-api/blob/master/CHANGELOG.md).
-<br>
+<a name="section-como-usar">
 
 ## Como usar este repositório
 
+</a>
+
 Em breve.
 
+<a name="section-vars">
+
 ### Variáveis de Ambiente
+
+</a>
 
 Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de ambiente:
 
@@ -102,23 +143,111 @@ Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de a
 |`DB_USERNAME=`| Define o nome de usuário de acesso ao Banco de Dados |
 |`DB_PASSWORD=`| Define a senha de acesso ao Banco de Dados |
 
+<hr>
+
 <br>
 
+<a name="section-changelog">
+
+## Notas de versão
+
+</a>
+
+<br>
+
+### v0.0.7-220902
+
+- Atualização da documentação
+- Remoção do CHANGELOG e inclusão no README
+
+<br>
+
+### v0.0.6-220726dx
+
+- Adição de arquivos .env e yarn lock ao gitignore
+- Adição de configurações de linting
+- Removidos dados de versão no Changelog
+- Remoção do template da API
+- Atualização da documentação
+- Atualização dos parâmetros jsdoc para compilação da documentação
+- Ajustes ao next coinfig para direcionamento automático de rota para alteração de Home Page da API
+- Remoção do parâmetro de porta de conexão separadamente em arquivo .env e retorno da menção da porta pelo script do package.json
+- Criação de Controller para manipulação e aquisição de dados
+- Alteração da Rota de API para pesquisas de funcionários
+- Implementação de função para controller customizado utilizando filtros de critério de pesquisa
+- Criada função para alteração do título da Home Page da documentação visto limitação da biblioteca jsdoc
+- Implementado método para aplicar CORS dentro da rota
+- Implementada função de query ao BD utilizando o conector do Sybase
+- Adicionados e revisados utilitários de máscaras e parsers
+
+<br>
+
+### v0.0.5-220322fr
+
+- v0.0.4-220322rl
+
+<br>
+
+### v0.0.4-220228fr
+
+- Efetuado criação da rota 'Funcionário' para consulta de dados do colaborador pela matrícula
+
+<br>
+
+### v0.0.3-220228fr
+
+- v0.0.2-220228fr
+- v0.0.1-220228dx
+
+ <br>
+
+### v0.0.2-220228fr
+
+- v0.0.1-220228dx
+
+ <br>
+
+### v0.0.1-220228dx
+
+- Criação do README
+- Criação do CHANGELOG
+- Recompilação da documentação inicial
+
+<hr>
+
+<br>
+
+<a name="section-autores">
+
 ## Autores
+
+</a>
 
 <a href="https://github.com/frtechdev/flem-bd-dominio-api/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=frtechdev/flem-bd-dominio-api" />
 </a>
 
+<hr>
+
 <br>
 
+<a name="section-contato">
+
 ## Contato
+
+</a>
 
 Se você gostou desse projeto, nos dê uma <a href="https://github.com/frtechdev/flem-bd-dominio-api" data-icon="octicon-star" aria-label="Star frtechdev/flem-bd-dominio-api on GitHub">estrela</a>. Isso agirá como um indicador da qualidade dos nossos serviços. <br>
 Para contato, envie um email a: <a href="mailto:devops@frtechnologies.com.br">devops@frtechnologies.com.br</a>
 
+<hr>
+
 <br>
 
+<a name="section-licenca">
+
 ## Licença
+
+</a>
 
 Licenciado sob a [MIT License](https://github.com/frtechdev/flem-bd-dominio-api/blob/main/LICENSE).

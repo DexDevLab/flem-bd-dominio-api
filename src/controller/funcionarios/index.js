@@ -1,7 +1,4 @@
-import { db } from "services/database";
 import executeQuery from "services/database/executeQuery";
-import { unmaskCPF } from "utils/masks";
-import { parseArrayToQueryString } from "utils/parsers";
 
 /**
  * Realiza uma query retornando todos os funcionários, ou apenas
@@ -33,7 +30,7 @@ export async function getFunc(ativo) {
  * na query da requisição, no formato de Query String para consulta no BD.
  * @returns Objeto contendo o resultado da pesquisa no BD.
  */
-export async function getFuncByFilter(filter){
+export async function getFuncByFilter(filter) {
   const queryStr = `
       SELECT *
           FROM bethadba.foempregados e
