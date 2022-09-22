@@ -1,4 +1,4 @@
-import { getFuncRhByFilter } from "controller/funcionarios";
+import { getFuncAfastamentosByFilter, getFuncRhByFilter } from "controller/funcionarios";
 import { allowCors } from "services/apiAllowCors";
 import { unmaskCPF } from "utils/masks";
 import {
@@ -37,8 +37,7 @@ import {
  * @param {Object} columns Define as condições de pesquisa ao relacionar
  * uma coluna da query com o resultado desejado. Em caso de mais de 1 coluna
  * informada, o uso de "condition" é obrigatório. Exemplo: matriculaDominio=1200
- * 
- * Os parâmetros podem ser definidos no formato de Array[].
+ * "columns" pode ser definido no formato de Array[].
  * 
  * @param {Object} req HTTP request.
  * @returns Objeto contendo o fragmento da Query String para requisitar ao BD.
@@ -89,13 +88,13 @@ const composeFilter = (req) => {
   if (orderBy) {
     filter.push(` ORDER BY ${orderBy.replaceAll('"', "").replaceAll("'", "")}`);
   } else {
-    filter.push(` ORDER BY matriculaDominio ASC`);
+    filter.push(` ORDER BY matriculaDominio ASC, afastamentoDataReal DESC`);
   }
   return filter;
 };
 
 /**
- * Fornece Funcionários e lista de Funcionários, conforme critérios.
+ * Fornece uma listagem de afastamentos dos funcionários, conforme critérios.
  * Os critérios servem como parâmetros para refinar a pesquisa conforme
  * necessário.
  * Os parâmetros são:
@@ -126,10 +125,11 @@ const composeFilter = (req) => {
  * @param {Object} columns - Define as condições de pesquisa ao relacionar
  * uma coluna da query com o resultado desejado. Em caso de mais de 1 coluna
  * informada, o uso de "condition" é obrigatório. Exemplo: matriculaDominio=1200
- * columns pode ser definido no formato de Array[].
+ * 
+ * Os parâmetros podem ser definidos no formato de Array[].
  * 
  * Exemplo de requisição completa:
- * /funcionarios?ativo=true&matriculaDominio=["1200", "600"]&codDepto="1000"&
+ * /afastamentos?ativo=true&matriculaDominio=["1200", "600"]&codDepto="1000"&
  * condition="AND"&orderBy="nome ASC"
  * 
  * @param {Object} req HTTP request. Apenas GET é aceito
@@ -147,12 +147,12 @@ async function handler(req, res) {
           status: 400,
           message: `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query` + 
             ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
-            ` Exemplo de requisição completa: /funcionarios?ativo=true&` +
+            ` Exemplo de requisição completa: /afastamentos?ativo=true&` +
             `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&`+
             `orderBy='nome ASC'.`,
         });
       } else {
-        const query = await getFuncRhByFilter(composeFilter(req.query), limit);
+        const query = await getFuncAfastamentosByFilter(composeFilter(req.query), limit);
         return res.status(200).json({ query });
       }
     } else {

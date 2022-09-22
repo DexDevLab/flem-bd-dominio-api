@@ -8,7 +8,9 @@ import { sybaseConnector } from ".";
  */
 async function executeQuery(queryStr) {
   try {
-    await sybaseConnector.connect();
+    if (!sybaseConnector.sybase.connected){
+      await sybaseConnector.connect();
+    }
     const query = await sybaseConnector.query(queryStr);
     return query;
   } catch (error) {

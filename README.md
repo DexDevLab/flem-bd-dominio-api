@@ -155,6 +155,24 @@ Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de a
 
 <br>
 
+### v0.0.8-220922
+
+- Atualização da documentação
+- Atualização do GITIGNORE
+- Modificação do controller de busca de funcionários para uma melhor organização entre as funções e as queries
+- Criação de um controller para pesquisa de histórico de férias, ausências e licenças de funcionários
+- Criação de um controller para pesquisa de dados de beneficiários dentre os dados dos funcionários
+- Criação de rota API para busca de dados de beneficiários, afastamentos e lista geral
+- Resolvido bug de performance causado pela desconexão mal resolvida do Sybase-Promised
+- Criado componente específico para armazenamento de queries realizadas pelos controllers
+- Reformulação das queries para trazer informações mais legíveis e completas
+- Criado componente para parametrizar fragmentos condicionais das queries (CASE, IF)
+- Acrescentados utilitários
+- Revisados utilitários de manipulação de array
+- Revisados métodos de composição de filtro de pesquisa de query dos controllers
+
+<br>
+
 ### v0.0.7-220902
 
 - Atualização da documentação
