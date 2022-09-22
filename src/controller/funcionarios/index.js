@@ -1,46 +1,106 @@
 import executeQuery from "services/database/executeQuery";
+import {
+  getAllAfastamentosDataQuery,
+  getAllBenefDataQuery,
+  getAllFuncRhDataQuery,
+} from "services/database/queries";
 
 /**
- * Realiza uma query retornando todos os funcionários, ou apenas
- * os ativos/inativos.
- * @param {String} ativo String contendo a parte da Query String
- * que busca por funcionários ativos, inativos ou ambos dentro do BD.
- * @returns Objeto contendo o resultado da pesquisa no BD.
+ * Lista todos os dados gerais de um funcionário, baseado em um critério de pesquisa.
+ *
+ * @param {String} filter String contendo os critérios de pesquisa informados
+ * na query da requisição, no formato de Query String para consulta no BD.
+ *
+ * @param {Object} limit Define uma quantidade máxima de resultados.
+ * Se este parâmetro for omitido, ele segue com uma quantidade máxima
+ * padrão, definida pela query em queryParameters.
+ *
+ * @returns {Object} Objeto contendo o resultado da pesquisa no BD.
+ * As colunas do resultado da query podem ser encontradas em
+ * getAllFuncRhDataQuery().
+ *
  */
-export async function getFunc(ativo) {
-  const queryLimit = 500;
-  const queryStr = `
-    SELECT TOP ${queryLimit} *
-    FROM bethadba.foempregados e
-    OUTER APPLY 
-    (
-      SELECT TOP 1 *
-      FROM [bethadba].[foafastamentos] a 
-      WHERE a.codi_emp = 1 AND e.i_empregados = a.i_empregados and e.i_depto != 1
-      ORDER BY nome ASC
-    ) a
-      WHERE e.codi_emp = 1 and e.i_depto != 1${ativo}
-    `;
+export async function getFuncRhByFilter(filter, limit) {
+  const queryStr = getAllFuncRhDataQuery(filter, limit);
   return await executeQuery(queryStr);
 }
 
 /**
- * Lista todos os funcionários baseado em um critério de pesquisa.
+ * Lista todos os dados de um funcionário, no escopo de beneficiário,
+ * baseado em um critério de pesquisa.
+ *
  * @param {String} filter String contendo os critérios de pesquisa informados
  * na query da requisição, no formato de Query String para consulta no BD.
- * @returns Objeto contendo o resultado da pesquisa no BD.
+ *
+ * @param {Object} limit Define uma quantidade máxima de resultados.
+ * Se este parâmetro for omitido, ele segue com uma quantidade máxima
+ * padrão, definida pela query em queryParameters.
+ *
+ * @returns {Object} Objeto contendo o resultado da pesquisa no BD.
+ * As colunas do resultado da query podem ser encontradas em
+ * getAllBenefDataQuery().
  */
-export async function getFuncByFilter(filter) {
-  const queryStr = `
-      SELECT *
-          FROM bethadba.foempregados e
-          OUTER APPLY 
-  (
-      SELECT TOP 1 *
-      FROM [bethadba].[foafastamentos] a 
-      WHERE a.codi_emp = 1 AND e.i_empregados = a.i_empregados and e.i_depto != 1
-      ORDER BY nome ASC
-  ) a
-      WHERE e.codi_emp = 1 and e.i_depto != 1 ${filter.join("")}`;
+export async function getFuncBenefByFilter(filter, limit) {
+  const queryStr = getAllBenefDataQuery(filter, limit);
   return await executeQuery(queryStr);
+}
+
+/**
+ * Lista todos os dados de um funcionário, no escopo dos seus afastamentos,
+ * baseado em um critério de pesquisa.
+ *
+ * @param {String} filter String contendo os critérios de pesquisa informados
+ * na query da requisição, no formato de Query String para consulta no BD.
+ *
+ * @param {Object} limit - Define uma quantidade máxima de resultados.
+ * Se este parâmetro for omitido, ele segue com uma quantidade máxima
+ * padrão, definida pela query em queryParameters.
+ *
+ * @returns {Object} Objeto contendo o resultado da pesquisa no BD.
+ * As colunas do resultado da query podem ser encontradas em
+ * getAllAfastamentosDataQuery().
+ */
+export async function getFuncAfastamentosByFilter(filter, limit) {
+  const queryStr = getAllAfastamentosDataQuery(filter, limit);
+  const dbQuery = await executeQuery(queryStr);
+  const query = dbQuery
+    .map((item, k) => {
+      // AGRUPA AFASTAMENTOS POR FUNCIONÁRIO
+      const afastamentos = [];
+      for (let i = 0; i < dbQuery.length; i++) {
+        if (dbQuery[k].matriculaDominio === dbQuery[i].matriculaDominio) {
+          afastamentos.push({
+            index: afastamentos.length,
+            situacao: dbQuery[i].situacao,
+            afastamentoDataReal: dbQuery[i].afastamentoDataReal,
+            afastamentoNumDias: dbQuery[i].afastamentoNumDias,
+          });
+        }
+      }
+      return {
+        nome: item.nome,
+        matriculaDominio: item.matriculaDominio,
+        cpf: item.cpf,
+        cargo: item.cargo,
+        codDepto: item.codDepto,
+        departamento: item.departamento,
+        dataAdmissao: item.dataAdmissao,
+        idSituacao: item.idSituacao,
+        desligado: item.desligado,
+        afastamentos: afastamentos
+      };
+    })
+    // IMPEDE CAMPOS NULOS NA QUERY
+    .filter((item, k) => {
+      return (
+        item.matriculaDominio !==
+          dbQuery[k < dbQuery.length - 1 ? k + 1 : k].matriculaDominio ||
+        k === dbQuery.length - 1
+      );
+    })
+    // RELACIONA NÚMERO DE LINHAS DA QUERY
+    .map((item, k) => {
+      return { queryRow: k, ...item };
+    });
+  return query;
 }

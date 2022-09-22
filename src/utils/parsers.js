@@ -51,19 +51,37 @@ export const parseArrayToString = (raw, key) => {
 };
 
 /**
- * Converte um Array de objetos para Strings, devidamente formatado. 
+ * Converte um Array de objetos para Strings, devidamente formatado.
  * Utilizado para criar os objetos de critério de pesquisa ao BD utilizando
  * queries SQL.
  * @param {Array} raw Array contendo valores a serem
  * convertidos para uma String.
  * @returns String devidamente formatada para compor Query String.
  */
-export const parseArrayToQueryString = (raw, key) =>{
+export const parseArrayToQueryString = (raw, key) => {
   try {
     const initialParse = JSON.parse(raw);
     const quotedItems = initialParse.map((item) => `'%${item}%'`);
-    return quotedItems.join(` OR ${key} LIKE `);
+    return `${quotedItems.join(` OR ${key} LIKE `)})`;
   } catch (e) {
-    return `'${raw.toString().replaceAll('"', "")}'`
+    return `'%${raw.toString().replaceAll('"', "")}%')`;
   }
-}
+};
+
+/**
+ * Converte um Array de objetos para Strings, devidamente formatado.
+ * Utilizado para criar os objetos de critério de pesquisa ao BD utilizando
+ * queries SQL.
+ * @param {Array} raw Array contendo valores a serem
+ * convertidos para uma String.
+ * @returns String devidamente formatada para compor Query String.
+ */
+export const parseArrayToQueryStringEquals = (raw, key) => {
+  try {
+    const initialParse = JSON.parse(raw);
+    const quotedItems = initialParse.map((item) => `'${item}'`);
+    return `(${quotedItems.join(`,`)})`
+  } catch (e) {
+    return `('${raw.toString().replaceAll('"', "")}')`;
+  }
+};

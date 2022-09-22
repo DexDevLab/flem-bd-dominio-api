@@ -1,16 +1,17 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.7-220902",
+  "version": "0.0.8-220922",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 4020",
+    "dev": "next dev -p 4030",
     "build": "next build",
-    "start": "next start -p 4020",
+    "start": "next start",
     "lint": "next lint",
     "docs": "jsdoc --readme README.md -c jsdoc-config.json"
   },
   "dependencies": {
+    "install": "^0.13.0",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",

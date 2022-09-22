@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+
+    <!-- Adding meta -->
+    
+    
+    <meta name="author" content="https://github.com/DexDevLab" />
+    
+    <meta name="author" content="https://github.com/rodsl" />
+    
+    <meta name="description" content="API que consome requisições das aplicações FLEM para o Banco de Dados de terceiros (Domínio Sistemas)." />
+    
+    
+
+    <!-- Adding external script-->
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" ></script>
+    
+    
+
+    <!-- Adding external style-->
+    
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+    
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/js/OverlayScrollbars.min.js"
+      integrity="sha512-5R3ngaUdvyhXkQkIqTf/k+Noq3phjmrqlUQyQYbgfI34Mzcx7vLIIYTy/K1VMHkL33T709kfh5y6R9Xy/Cbt7Q=="
+      crossorigin="anonymous"></script>
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      services/database/queries.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-light.css">
+    
+    <style>
+      nav{background: yellow}
+    </style>
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">FLEM BD Domínio API - Documentação</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><ul><li class="menu-li"><a href='https://frtechnologies.com.br' class='some-class menu-link' id='some-id' target='_blank'>Website</a></li><li class="menu-li"><a href='https://github.com/frtechdev/flem-bd-dominio-api/' class='some-class menu-link' id='some-id' target='_blank'>Github</a></li></ul><div class="accordion collapsed" id="2828792" > <h3 class="accordion-heading">Global<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="global.html#allowCors">allowCors</a></li><li class="accordion-list" id=""><a href="global.html#composeFilter">composeFilter</a></li><li class="accordion-list" id=""><a href="global.html#executeQuery">executeQuery</a></li><li class="accordion-list" id=""><a href="global.html#formatCPF">formatCPF</a></li><li class="accordion-list" id=""><a href="global.html#getAllAfastamentosDataQuery">getAllAfastamentosDataQuery</a></li><li class="accordion-list" id=""><a href="global.html#getAllBenefDataQuery">getAllBenefDataQuery</a></li><li class="accordion-list" id=""><a href="global.html#getAllFuncRhDataQuery">getAllFuncRhDataQuery</a></li><li class="accordion-list" id=""><a href="global.html#getFuncAfastamentosByFilter">getFuncAfastamentosByFilter</a></li><li class="accordion-list" id=""><a href="global.html#getFuncBenefByFilter">getFuncBenefByFilter</a></li><li class="accordion-list" id=""><a href="global.html#getFuncRhByFilter">getFuncRhByFilter</a></li><li class="accordion-list" id=""><a href="global.html#handler">handler</a></li><li class="accordion-list" id=""><a href="global.html#maskCapitalize">maskCapitalize</a></li><li class="accordion-list" id=""><a href="global.html#maskCPF">maskCPF</a></li><li class="accordion-list" id=""><a href="global.html#maskDate">maskDate</a></li><li class="accordion-list" id=""><a href="global.html#MyApp">MyApp</a></li><li class="accordion-list" id=""><a href="global.html#normalizeString">normalizeString</a></li><li class="accordion-list" id=""><a href="global.html#parseArrayToInteger">parseArrayToInteger</a></li><li class="accordion-list" id=""><a href="global.html#parseArrayToQueryString">parseArrayToQueryString</a></li><li class="accordion-list" id=""><a href="global.html#parseArrayToQueryStringEquals">parseArrayToQueryStringEquals</a></li><li class="accordion-list" id=""><a href="global.html#parseArrayToString">parseArrayToString</a></li><li class="accordion-list" id=""><a href="global.html#sybaseConnector">sybaseConnector</a></li><li class="accordion-list" id=""><a href="global.html#unmaskCPF">unmaskCPF</a></li></ul> </div>
+      
+        <div class="navbar-resize" id="navbar-resize">
+          <div class="resize-dots-container">
+            <div class="dots"></div>
+            <div class="dots"></div>
+            <div class="dots"></div>
+          </div> 
+        </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        services/database/queries.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  desligado,
+  enderecoTipoLogradouro,
+  escolaridade,
+  estadoCivil,
+  sexo,
+  situacao,
+} from "./queryParameters";
+
+/**
+ * Query SQL para receber todos os funcionários do BD Domínio.
+ * 
+ * Colunas:
+ * 
+ * @param {Integer} matriculaDominio Matrícula do funcionário
+ * no sistema
+ * 
+ * @param {String} nome Nome do funcionário
+ * 
+ * @param {String} cargo Cargo
+ * 
+ * @param {Integer} codDepto Código do departamento
+ * 
+ * @param {String} departamento Nome do departamento
+ * 
+ * @param {Date} dataNasc Data de nascimento
+ * 
+ * @param {String} sexo Sexo do funcionário, de acordo com seu
+ * documento de registro
+ * 
+ * @param {String} estadoCivil Estado Civil do funcionário, de
+ * acordo com seu documento de registro
+ * 
+ * @param {Integer} dependentes Número de dependentes familiares
+ * do funcionário, sob sua responsabilidade
+ * 
+ * @param {String} naturalidade Naturalidade do registro de nascimento
+ * 
+ * @param {String} ufNascimento UF do registro de nascimento
+ * 
+ * @param {String} cpf CPF
+ * 
+ * @param {String} identidade Registro Geral do documento de identidade
+ * 
+ * @param {String} escolaridade Nível de escolaridade
+ * 
+ * @param {String} email Email de contato
+ * 
+ * @param {String} email_alterativo Email de contato secundário
+ * 
+ * @param {String} pis Registro de PIS/NIS
+ * 
+ * @param {String} cartProf Registro da CTPS
+ * 
+ * @param {String} enderecoTipoLogradouro Tipo de logradouro
+ * do endereço
+ * 
+ * @param {String} enderecoCep CEP do endereço
+ * 
+ * @param {String} enderecoLogradouro Logradouro do endereço
+ * 
+ * @param {String} enderecoNumero Número do endereço
+ * 
+ * @param {String} enderecoBairro Bairro do endereço
+ * 
+ * @param {String} enderecoMunicipio Município do endereço
+ * 
+ * @param {String} enderecoUf UF do endereço
+ * 
+ * @param {String} telefone Telefone de contato
+ * 
+ * @param {String} nomePai Nome do pai
+ * 
+ * @param {String} nomeMae Nome da mãe
+ * 
+ * @param {String} nomeConjuge Nome do Cônjuge
+ * 
+ * @param {Date} dataAdmissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {Integer} idSituacao Código da situação contratual
+ * do funcionário de acordo com o sistema
+ * 
+ * @param {String} situacao Descrição da situação contratual
+ * 
+ * @param {String} desligado Informa se o funcionário
+ * se encontra desligado ("S" para SIM e "N" para NÃO)
+ * 
+ * @param {Date} dataDemissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {String} possuiPlano Informa se o funcionário
+ * possui plano de saúde ("S" para SIM e "N" para NÃO)
+ * 
+ * @param {String} possuiPlanoOdonto Informa se o funcionário
+ * possui plano odontológico ("S" para SIM e "N" para NÃO)
+ * 
+ * @param {Integer} salario Salário do funcionário
+ * 
+ * @param {String} jornadaTrabalho Descrição da jornada
+ * de trabalho
+ * 
+ * @param {String} funcCelular Número de telefone celular
+ * corporativo / alternativo
+ * 
+ * @param {Array} filter Filtro com condições para pesquisa
+ * detalhada na query 
+ * @param {Object} queryLimit Define o limite dos resultados para
+ * pesquisa na query.
+ * @returns {String} Query para execução pelo controller para pesquisa
+ * no BD
+ */
+export function getAllFuncRhDataQuery(filter, queryLimit) {
+  return `
+        SELECT TOP  ${queryLimit || 3500}
+
+        ROW_NUMBER() OVER(ORDER BY e.i_empregados ASC) AS queryRow,
+        e.i_empregados AS matriculaDominio, 
+        e.nome AS nome, 
+        c.nome AS cargo,
+        d.codDepto as codDepto,
+        d.departamento AS departamento, 
+        e.data_nascimento AS dataNasc,
+        ${sexo},
+        ${estadoCivil},
+        isnull(dep.quantidade, 0) AS dependentes,
+        mn.nome_municipio AS naturalidade,
+        e.uf_nascimento AS ufNascimento, 
+        e.cpf AS cpf, 
+        e.identidade AS identidade,
+        ${escolaridade},
+        e.email AS email, 
+        e.email_alternativo AS emailAlternativo, 
+        e.pis AS pis,
+        (e.cart_prof + e.serie_cart_prof + e.uf_cart_prof) as cartProf,
+        ${enderecoTipoLogradouro},
+        e.cep AS enderecoCep,
+        e.complemento AS enderecoLogradouro,
+        e.numero_end AS enderecoNumero,
+        e.bairro AS enderecoBairro,
+        mns.nome_municipio AS enderecoMunicipio,
+        sigla_uf AS enderecoUf,
+        ltrim(rtrim(isnull(e.ddd_fone, '') + ' ' +  e.fone)) AS telefone, 
+        e.nome_pai AS nomePai,
+        e.nome_mae AS nomeMae, 
+        e.nome_conjuge AS nomeConjuge,
+        e.admissao AS dataAdmissao,
+        isnull(a.i_afastamentos, 0) as idSituacao,
+        ${situacao},
+        ${desligado},
+        r.demissao AS dataDemissao,
+        pl.possui_plano AS possuiPlano, 
+        o.possui_plano AS possuiPlanoOdonto, 
+        e.salario AS salario,
+        j.descricao_jornada AS jornadaTrabalho,
+        (e.ddd_celular + e.celular) AS funcCelular
+
+    FROM [bethadba].[foempregados] AS e
+
+        LEFT JOIN bethadba.gemunicipio AS mn ON (e.MUNICIPIO_NASCIMENTO = mn.codigo_municipio)
+        LEFT JOIN bethadba.gemunicipio AS m ON (e.MUNICIPIO_ENDERECO = m.codigo_municipio)
+        LEFT JOIN bethadba.geestado AS est_end ON (est_end.codigo_uf = m.codigo_uf)
+        LEFT JOIN SRVDOMINIO.Contabil.bethadba.forescisoes r ON (r.i_empregados = e.i_empregados AND r.codi_emp = 1 AND r.tipo = 1)
+        
+        OUTER APPLY
+        (
+            SELECT TOP 1
+            j.descricao_jornada
+            FROM bethadba.fojornadas AS j
+            WHERE e.i_jornada = j.i_jornada
+        ) AS j
+
+
+	    OUTER APPLY
+        (
+            SELECT TOP 1
+                i_empregados, 
+                i_afastamentos,
+                data_real,
+                numero_dias
+            FROM [bethadba].[foafastamentos] AS a
+            WHERE a.codi_emp = 1 AND e.i_empregados = a.i_empregados AND e.i_depto != 1 AND CAST(a.data_real AS date) &lt;= CAST(GETDATE() AS date) 
+            ORDER BY a.data_real DESC
+        ) AS a
+
+        OUTER APPLY
+        (
+            SELECT
+                codigo_municipio, nome_municipio
+            FROM bethadba.gemunicipio AS mns
+            WHERE e.i_depto != 1 AND e.municipio_endereco = mns.codigo_municipio
+            ORDER BY nome ASC
+        ) AS mns
+
+        OUTER APPLY
+        (
+            SELECT
+                i_cargos, 
+                nome
+            FROM [bethadba].[focargos] AS c
+            WHERE e.i_depto != 1 AND c.i_cargos = e.i_cargos AND c.codi_emp = 1
+        ) AS c
+    
+        OUTER APPLY
+        (
+            SELECT
+                CASE 
+                    WHEN SUM
+                            (
+                                CASE 
+                                    WHEN (DATA_FIM IS NULL OR CAST(DATA_FIM AS date) >= CAST(GETDATE() AS date)) 
+                                        THEN 1
+                                            ELSE 0 
+                                END
+                            ) > 0 
+                        THEN 'S' 
+                            ELSE 'N' 
+                END AS possui_plano
+            FROM [bethadba].[FOEMPREGADOS_PLANO_SAUDE] AS pl
+            WHERE e.i_empregados = pl.I_EMPREGADOS AND e.i_depto != 1
+            AND I_OPERADORAPLANOSAUDE = 1
+        ) AS pl
+
+        OUTER APPLY
+        (
+            SELECT
+                CASE 
+                    WHEN SUM
+                            (
+                                CASE 
+                                    WHEN (DATA_FIM IS NULL OR CAST(DATA_FIM AS date) >= CAST(GETDATE() as date)) 
+                                        THEN 1 
+                                            ELSE 0 
+                                END
+                            ) > 0 
+                        THEN 'S' 
+                            ELSE 'N' 
+                END AS possui_plano
+            FROM [bethadba].[FOEMPREGADOS_PLANO_SAUDE] AS o
+            WHERE e.i_empregados = o.I_EMPREGADOS AND e.i_depto != 1
+            AND I_OPERADORAPLANOSAUDE = 2
+        ) AS o
+
+        OUTER APPLY
+        (
+            SELECT
+                count(*) AS quantidade
+            FROM [bethadba].[fofilhos] AS dep
+            WHERE codi_emp = 1 AND e.i_empregados = dep.i_empregados
+        ) AS dep
+
+        OUTER APPLY
+        (
+            SELECT
+                d.nome as departamento,
+                d.i_depto as codDepto
+            FROM [bethadba].[fodepto] d 
+            WHERE d.codi_emp = 1 AND e.i_depto != 1 AND e.i_depto = d.i_depto
+            ORDER BY d.nome ASC
+        ) AS d
+
+        WHERE CAST(e.admissao AS date) &lt;= CAST(GETDATE() AS date) AND e.codi_emp = 1 AND e.i_depto != 1 AND e.vinculo != 13${
+          filter.join("") || ""
+        }
+    `;
+}
+
+
+/**
+ * Query SQL para receber todos os funcionários do BD Domínio,
+ * no escopo beneficiários (apenas dados utilizados para validação
+ * no Portal PPE).
+ * 
+ * Colunas:
+ * 
+ * @param {Integer} matriculaDominio Matrícula do funcionário
+ * no sistema
+ * 
+ * @param {String} nome Nome do funcionário
+ * 
+ * @param {Integer} codDepto Código do departamento
+ * 
+ * @param {String} departamento Nome do departamento
+ * 
+ * @param {String} cpf CPF
+ * 
+ * @param {Date} dataAdmissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {Integer} idSituacao Código da situação contratual
+ * do funcionário de acordo com o sistema
+ * 
+ * @param {String} situacao Descrição da situação contratual
+ * 
+ * @param {String} desligado Informa se o funcionário
+ * se encontra desligado ("S" para SIM e "N" para NÃO)
+ * 
+ * @param {Date} dataDemissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {Array} filter Filtro com condições para pesquisa
+ * detalhada na query 
+ * @param {Object} queryLimit Define o limite dos resultados para
+ * pesquisa na query.
+ * @returns {String} Query para execução pelo controller para pesquisa
+ * no BD
+ */
+export function getAllBenefDataQuery(filter, queryLimit) {
+  return `
+        SELECT TOP  ${queryLimit || 6000}
+  
+            ROW_NUMBER() OVER(ORDER BY e.i_empregados ASC) AS queryRow,
+            e.i_empregados AS matriculaDominio, 
+            e.nome AS nome,
+            d.codDepto as codDepto,
+            d.departamento AS departamento,  
+            e.cpf AS cpf,
+            e.admissao AS dataAdmissao,
+            isnull(a.i_afastamentos, 0) as idSituacao,
+            ${situacao},
+            ${desligado},
+            r.demissao AS dataDemissao
+
+        FROM [bethadba].[foempregados] AS e
+
+            LEFT JOIN SRVDOMINIO.Contabil.bethadba.forescisoes r ON (r.i_empregados = e.i_empregados AND r.codi_emp = 1 AND r.tipo = 1)
+
+            OUTER APPLY
+            (
+                SELECT TOP 1
+                    i_empregados, 
+                    i_afastamentos
+                FROM [bethadba].[foafastamentos] AS a
+                WHERE a.codi_emp = 1 AND e.i_empregados = a.i_empregados AND e.i_depto != 1 AND CAST(a.data_real AS date) &lt;= CAST(GETDATE() AS date) 
+                ORDER BY a.data_real DESC
+            ) AS a
+
+            OUTER APPLY
+            (
+                SELECT
+                    i_cargos, 
+                    nome
+                FROM [bethadba].[focargos] AS c
+                WHERE e.i_depto != 1 AND c.i_cargos = e.i_cargos AND c.codi_emp = 1
+            ) AS c
+
+            OUTER APPLY
+            (
+                SELECT
+                    d.nome as departamento,
+                    d.i_depto as codDepto
+                FROM [bethadba].[fodepto] d 
+                WHERE d.codi_emp = 1 AND e.i_depto != 1 AND e.i_depto = d.i_depto
+                ORDER BY d.nome ASC
+            ) AS d
+  
+        WHERE CAST(e.admissao AS date) &lt;= CAST(GETDATE() AS date) AND e.codi_emp = 1 AND e.i_depto != 1 AND e.vinculo != 13${
+          filter.join("") || ""
+        }
+      `;
+}
+
+
+
+/**
+ * Query SQL para listar todos os eventos de afastamento do funcionário,
+ * seja por desligamento, férias ou licenças.
+ * 
+ * Colunas:
+ * 
+ * @param {Integer} matriculaDominio Matrícula do funcionário
+ * no sistema
+ * 
+ * @param {String} nome Nome do funcionário
+ * 
+ * @param {String} cargo Cargo
+ * 
+ * @param {Integer} codDepto Código do departamento
+ * 
+ * @param {String} departamento Nome do departamento
+ * 
+ * @param {String} cpf CPF
+ * 
+ * @param {Date} dataAdmissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {Integer} idSituacao Código da situação contratual
+ * do funcionário de acordo com o sistema
+ * 
+ * @param {String} situacao Descrição da situação contratual
+ * 
+ * @param {String} desligado Informa se o funcionário
+ * se encontra desligado ("S" para SIM e "N" para NÃO)
+ * 
+ * @param {Date} dataDemissao Data de Admissão do funcionário
+ * no sistema.
+ * 
+ * @param {Date} afastamentoDataReal Data do início de um afastamento
+ * específico
+ * 
+ * @param {Date} afastamentoNumDias Quantidade de dias que durou
+ * este evento de afastamento
+ * 
+ * @param {String} funcCelular Número de telefone celular
+ * corporativo / alternativo
+ * 
+ * @param {Array} filter Filtro com condições para pesquisa
+ * detalhada na query 
+ * @param {Object} queryLimit Define o limite dos resultados para
+ * pesquisa na query.
+ * @returns {String} Query para execução pelo controller para pesquisa
+ * no BD
+ */
+export function getAllAfastamentosDataQuery(filter, queryLimit) {
+  return `
+        SELECT TOP  ${queryLimit || 6000}
+  
+            ROW_NUMBER() OVER(ORDER BY e.i_empregados ASC) AS queryRow,
+            e.i_empregados AS matriculaDominio, 
+            e.nome AS nome, 
+            c.nome AS cargo,
+            d.codDepto as codDepto,
+            d.departamento AS departamento, 
+            e.cpf AS cpf,
+            e.admissao AS dataAdmissao,
+            isnull(a.i_afastamentos, 0) as idSituacao,
+            ${situacao},
+            ${desligado},
+            r.demissao AS dataDemissao,
+            a.data_real AS afastamentoDataReal, 
+            a.numero_dias AS afastamentoNumDias
+    
+        FROM [bethadba].[foempregados] AS e
+    
+            LEFT JOIN SRVDOMINIO.Contabil.bethadba.forescisoes r ON (r.i_empregados = e.i_empregados AND r.codi_emp = 1 AND r.tipo = 1)
+            
+            OUTER APPLY
+            (
+                SELECT
+                    i_empregados, 
+                    i_afastamentos,
+                    data_real,
+                    numero_dias
+                FROM [bethadba].[foafastamentos] AS a
+                WHERE a.codi_emp = 1 AND e.i_empregados = a.i_empregados AND e.i_depto != 1
+                ORDER BY nome ASC
+            ) AS a
+    
+            OUTER APPLY
+            (
+                SELECT
+                    i_cargos, 
+                    nome
+                FROM [bethadba].[focargos] AS c
+                WHERE e.i_depto != 1 AND c.i_cargos = e.i_cargos AND c.codi_emp = 1
+            ) AS c
+        
+            OUTER APPLY
+            (
+                SELECT
+                    d.nome as departamento,
+                    d.i_depto as codDepto
+                FROM [bethadba].[fodepto] d 
+                WHERE d.codi_emp = 1 AND e.i_depto != 1 AND e.i_depto = d.i_depto
+                ORDER BY d.nome ASC
+            ) AS d
+  
+          WHERE CAST(e.admissao AS date) &lt;= CAST(GETDATE() AS date) AND e.codi_emp = 1 AND e.i_depto != 1 AND e.vinculo != 13${
+            filter.join("") || ""
+          }
+      `;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      Made with ☕️ by <a href='https://github.com/frtechdev'>FR Technologies</a>
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"allowCors","link":"<a href=\"global.html#allowCors\">allowCors</a>"},{"title":"composeFilter","link":"<a href=\"global.html#composeFilter\">composeFilter</a>"},{"title":"executeQuery","link":"<a href=\"global.html#executeQuery\">executeQuery</a>"},{"title":"formatCPF","link":"<a href=\"global.html#formatCPF\">formatCPF</a>"},{"title":"getAllAfastamentosDataQuery","link":"<a href=\"global.html#getAllAfastamentosDataQuery\">getAllAfastamentosDataQuery</a>"},{"title":"getAllBenefDataQuery","link":"<a href=\"global.html#getAllBenefDataQuery\">getAllBenefDataQuery</a>"},{"title":"getAllFuncRhDataQuery","link":"<a href=\"global.html#getAllFuncRhDataQuery\">getAllFuncRhDataQuery</a>"},{"title":"getFuncAfastamentosByFilter","link":"<a href=\"global.html#getFuncAfastamentosByFilter\">getFuncAfastamentosByFilter</a>"},{"title":"getFuncBenefByFilter","link":"<a href=\"global.html#getFuncBenefByFilter\">getFuncBenefByFilter</a>"},{"title":"getFuncRhByFilter","link":"<a href=\"global.html#getFuncRhByFilter\">getFuncRhByFilter</a>"},{"title":"handler","link":"<a href=\"global.html#handler\">handler</a>"},{"title":"maskCapitalize","link":"<a href=\"global.html#maskCapitalize\">maskCapitalize</a>"},{"title":"maskCPF","link":"<a href=\"global.html#maskCPF\">maskCPF</a>"},{"title":"maskDate","link":"<a href=\"global.html#maskDate\">maskDate</a>"},{"title":"MyApp","link":"<a href=\"global.html#MyApp\">MyApp</a>"},{"title":"normalizeString","link":"<a href=\"global.html#normalizeString\">normalizeString</a>"},{"title":"parseArrayToInteger","link":"<a href=\"global.html#parseArrayToInteger\">parseArrayToInteger</a>"},{"title":"parseArrayToQueryString","link":"<a href=\"global.html#parseArrayToQueryString\">parseArrayToQueryString</a>"},{"title":"parseArrayToQueryStringEquals","link":"<a href=\"global.html#parseArrayToQueryStringEquals\">parseArrayToQueryStringEquals</a>"},{"title":"parseArrayToString","link":"<a href=\"global.html#parseArrayToString\">parseArrayToString</a>"},{"title":"sybaseConnector","link":"<a href=\"global.html#sybaseConnector\">sybaseConnector</a>"},{"title":"unmaskCPF","link":"<a href=\"global.html#unmaskCPF\">unmaskCPF</a>"}];
+        var options = {}
+          setupSearch(list, options)
+      </script>
+    
+
+    
+    <script type="text/javascript">
+        function foo(){console.log('foo')}
+    </script>
+    
+
+    
+      <script src="scripts/resize.js"></script>
+      <script type="text/javascript">
+        var option = {"min":"300","max":"600"}
+        setupResizeOptions(option)
+      </script>
+    
+
+    
+    <script type="text/javascript">
+    var option = JSON.parse('{"options":{}}')
+      document.addEventListener("DOMContentLoaded", function () {
+        OverlayScrollbars(document.querySelectorAll('body'), option.option || {});
+      });
+    </script>
+    
+
+
+  </body>
+
+</html>
