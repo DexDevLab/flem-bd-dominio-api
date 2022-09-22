@@ -112,4 +112,29 @@
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   }
+
+  /**
+ * Normaliza uma String, isto é, coloca ela em um formato ideal
+ * para ser utilizada para comparação ou normalizar formatações.
+ * @param {Boolean} trim se TRUE, remove espaços antes de realizar
+ * a normalização (exemplo: João Márcio da Silva => joaomarciodasilva).
+ * Se FALSE, não remove os espaços caso existam
+ * (exemplo: João Márcio da Silva => joao marcio da silva)
+ * @param {String} str uma String que precisa ser normalizada.
+ * @returns {String} String normalizada.
+ */
+export const normalizeString = (trim, str) => {
+  return trim
+    ? str
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\s+/g,' ')
+        .replace(/^\s+|\s+$/,'')
+    : str
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+};
   
