@@ -12,7 +12,7 @@
 <a href="">[![Contributors](https://img.shields.io/github/contributors/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/graphs/contributors)</a><br>
 <a href="">![Last Commit](https://img.shields.io/github/last-commit/frtechdev/flem-bd-dominio-api)</a>
 <a href="">[![Fork](https://img.shields.io/github/forks/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/fork) </a>
-<a href="">![Version](https://img.shields.io/badge/version-0.0.9-005bff) </a>
+<a href="">![Version](https://img.shields.io/badge/version-0.0.10-005bff) </a>
 <a href="">[![license](https://img.shields.io/github/license/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/LICENSE)</a>
 
 <br>
@@ -99,7 +99,7 @@ API que consome requisições das aplicações FLEM para o Banco de Dados de ter
 - **Framework estrutural:** [Next.js](https://nextjs.org/docs/getting-started)
 - **Biblioteca de Conexão ODBC:** [Sybase-Promised](https://www.npmjs.com/package/sybase-promised)
 - **Gerenciador de Bibliotecas:** [Yarn](https://yarnpkg.com/getting-started)
-- **Bibliotecas:** Para uma lista completa de bibliotecas e dependências nos mais variados escopos, conferir o arquivo [package.json](https://github.com/frtechdev/flem-bd-dominio-api/blob/master/package.json).
+- **Bibliotecas:** Para uma lista completa de bibliotecas e dependências nos mais variados escopos, conferir o arquivo [package.json](https://github.com/frtechdev/flem-bd-dominio-api/blob/main/package.json).
 
 <hr>
 
@@ -131,7 +131,7 @@ Documentação adicional pode ser encontrada [aqui](https://frtechdev.github.io/
 
 1 - Faça um git clone ou o download do repositório, da forma que preferir
 
-`git clone https://github.com/frtechdev/flem-mail-api.git`
+`git clone https://github.com/frtechdev/flem-bd-dominio-api.git`
 
 2 - Instale um gerenciador de pacotes (preferencialmente yarn) utilizando um terminal no diretório raiz do repositório clonado
 
@@ -166,6 +166,12 @@ Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de a
 ## Notas de versão
 
 </a>
+
+<br>
+
+### v0.0.10-221110
+
+- Atualização da documentação
 
 <br>
 
