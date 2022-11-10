@@ -1,3 +1,7 @@
+/**
+ * Parâmetro SQL que retorna a descrição da situação
+ * contratual do funcionário através do ID da situação.
+ */
 export const situacao = `
     CASE idSituacao 
         WHEN 1 
@@ -116,6 +120,10 @@ export const situacao = `
     END AS situacao
 `;
 
+/**
+ * Parâmetro SQL que retorna o critério para
+ * buscar funcionários desligados.
+ */
 export const desligado = `
     CASE 
         WHEN r.demissao IS NULL
@@ -124,6 +132,10 @@ export const desligado = `
     END desligado
 `;
 
+/**
+ * Parâmetro SQL que retorna o tipo de logradouro
+ * do endereço do funcionário.
+ */
 export const enderecoTipoLogradouro = `
     CASE e.TIPO_ENDERECO 
         WHEN 45 
@@ -325,6 +337,10 @@ export const enderecoTipoLogradouro = `
     END AS enderecoTipoLogradouro
 `;
 
+/**
+ * Parâmetro SQL que retorna a descrição da escolaridade
+ * do funcionário através do código do grau de instrução.
+ */
 export const escolaridade = `
     CASE e.grau_instrucao 
         WHEN 1 
@@ -356,6 +372,10 @@ export const escolaridade = `
     END AS escolaridade
 `;
 
+/**
+ * Parâmetro SQL que retorna o estado civil do
+ * funcionário baseado no código do estado civil.
+ */
 export const estadoCivil = `
     CASE estado_civil
         WHEN 'S' 
@@ -376,6 +396,10 @@ export const estadoCivil = `
     END AS estadoCivil
 `;
 
+/**
+ * Parâmetro SQL que retorna o sexo do funcionário
+ * descrito no BD.
+ */
 export const sexo = `
     CASE sexo
         WHEN 'F' 

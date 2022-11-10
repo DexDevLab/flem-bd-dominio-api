@@ -6,7 +6,7 @@
  * convertidos para um Array de objetos do tipo Inteiro.
  * @returns Array de objetos do tipo Inteiro.
  */
-export const parseArrayToInteger = (raw) => {
+const parseArrayToInteger = (raw) => {
   try {
     const initialParse = JSON.parse(raw);
     if (Array.isArray(initialParse)) {
@@ -28,6 +28,8 @@ export const parseArrayToInteger = (raw) => {
   }
 };
 
+export {parseArrayToInteger};
+
 /**
  * Converte um Array de objetos para um Array de Strings. Utilizado
  * para criar os objetos de critério de pesquisa ao BD utilizando
@@ -36,7 +38,7 @@ export const parseArrayToInteger = (raw) => {
  * convertidos para um Array de objetos do tipo String.
  * @returns Array de objetos do tipo String.
  */
-export const parseArrayToString = (raw, key) => {
+const parseArrayToString = (raw, key) => {
   try {
     const initialParse = JSON.parse(raw);
     if (Array.isArray(initialParse)) {
@@ -49,6 +51,7 @@ export const parseArrayToString = (raw, key) => {
     return [{ [key]: { contains: raw } }];
   }
 };
+export {parseArrayToString};
 
 /**
  * Converte um Array de objetos para Strings, devidamente formatado.
@@ -58,7 +61,7 @@ export const parseArrayToString = (raw, key) => {
  * convertidos para uma String.
  * @returns String devidamente formatada para compor Query String.
  */
-export const parseArrayToQueryString = (raw, key) => {
+const parseArrayToQueryString = (raw, key) => {
   try {
     const initialParse = JSON.parse(raw);
     const quotedItems = initialParse.map((item) => `'%${item}%'`);
@@ -67,6 +70,7 @@ export const parseArrayToQueryString = (raw, key) => {
     return `'%${raw.toString().replaceAll('"', "")}%')`;
   }
 };
+export {parseArrayToQueryString};
 
 /**
  * Converte um Array de objetos para Strings, devidamente formatado.
@@ -76,7 +80,7 @@ export const parseArrayToQueryString = (raw, key) => {
  * convertidos para uma String.
  * @returns String devidamente formatada para compor Query String.
  */
-export const parseArrayToQueryStringEquals = (raw, key) => {
+const parseArrayToQueryStringEquals = (raw, key) => {
   try {
     const initialParse = JSON.parse(raw);
     const quotedItems = initialParse.map((item) => `'${item}'`);
@@ -85,3 +89,5 @@ export const parseArrayToQueryStringEquals = (raw, key) => {
     return `('${raw.toString().replaceAll('"', "")}')`;
   }
 };
+
+export {parseArrayToQueryStringEquals};
