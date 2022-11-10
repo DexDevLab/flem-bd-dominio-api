@@ -51,7 +51,7 @@
 
 
     <title>
-      services/apiAllowCors.js
+      controller/beneficiarios/index.js
     </title>
 
     <!--[if lt IE 9]>
@@ -130,7 +130,7 @@
     <div id="main" class="main-content">
       
       <h1 id='page-title' class="page-title">
-        services/apiAllowCors.js
+        controller/beneficiarios/index.js
       </h1>
       
 
@@ -141,31 +141,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Utilitário para dar override sobre erro do CORS com direcionamentos HTTP.
- * @param {Function} fn função contendo a requisição ou o objeto da rota.
- * @returns {Function} rota já trabalhada com os headers de segurança
- */
-const allowCors = (fn) => async (req, res) => {
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  //res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-  );
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
-  return await fn(req, res);
-};
+            <pre class="prettyprint source linenums"><code>import executeQuery from "services/database/executeQuery";
+import { getAllBenefDataQuery } from "services/database/queries";
+import { unmaskCPF } from "utils";
+import {
+  parseArrayToQueryString,
+  parseArrayToQueryStringEquals,
+} from "utils/parsers";
 
-export {allowCors};
+
+/**
+ * Lista todos os dados de um funcionário, no escopo de beneficiário,
+ * baseado em um critério de pesquisa.
+ *
+ * @param {String} filter String contendo os critérios de pesquisa informados
+ * na query da requisição, no formato de Query String para consulta no BD.
+ *
+ * @param {Object} limit Define uma quantidade máxima de resultados.
+ * Se este parâmetro for omitido, ele segue com uma quantidade máxima
+ * padrão, definida pela query em queryParameters.
+ *
+ * @returns {Object} Objeto contendo o resultado da pesquisa no BD.
+ * As colunas do resultado da query podem ser encontradas em
+ * getAllBenefDataQuery().
+ */
+export async function getFuncBenefByFilter(params) {
+  const { limit, ...criteria } = params;
+  const queryStr = getAllBenefDataQuery(queryComposer(criteria, false), limit);
+  return await executeQuery(queryStr);
+}
 </code></pre>
         </article>
     </section>
