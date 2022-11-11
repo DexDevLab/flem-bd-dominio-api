@@ -12,7 +12,7 @@
 <a href="">[![Contributors](https://img.shields.io/github/contributors/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/graphs/contributors)</a><br>
 <a href="">![Last Commit](https://img.shields.io/github/last-commit/frtechdev/flem-bd-dominio-api)</a>
 <a href="">[![Fork](https://img.shields.io/github/forks/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/fork) </a>
-<a href="">![Version](https://img.shields.io/badge/version-0.0.10-005bff) </a>
+<a href="">![Version](https://img.shields.io/badge/version-0.0.11-005bff) </a>
 <a href="">[![license](https://img.shields.io/github/license/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/LICENSE)</a>
 
 <br>
@@ -166,6 +166,12 @@ Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de a
 ## Notas de versão
 
 </a>
+
+<br>
+
+### v0.0.11-221111
+
+- Atualização da documentação
 
 <br>
 
