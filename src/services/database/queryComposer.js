@@ -1,3 +1,5 @@
+import { parseArrayToQueryStringEquals } from "utils/parsers";
+
 /**
  * Função para compor o filtro da query. Caso a requisição faça uma solicitação
  * ao BD utilizando critérios de pesquisa ("condition") e um objeto de filtro,

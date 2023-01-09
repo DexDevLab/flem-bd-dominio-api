@@ -1,6 +1,6 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.11-221111",
+  "version": "0.0.12-230109",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docs": "jsdoc --readme README.md -c jsdoc-config.json"
+    "docs": "jsdoc --readme README.md -c jsdoc-config.json",
+    "caniuse": "npm --depth 20 update --save caniuse-lite browserslist"
   },
   "dependencies": {
     "install": "^0.13.0",

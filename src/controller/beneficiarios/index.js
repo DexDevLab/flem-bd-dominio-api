@@ -1,5 +1,6 @@
 import executeQuery from "services/database/executeQuery";
 import { getAllBenefDataQuery } from "services/database/queries";
+import { queryComposer } from "services/database/queryComposer";
 import { unmaskCPF } from "utils";
 import {
   parseArrayToQueryString,
