@@ -1,4 +1,4 @@
-import { getFuncBenefByFilter } from "controller/funcionarios";
+import { getFuncBenefByFilter } from "controller/beneficiarios";
 import { allowCors } from "services/apiAllowCors";
 
 /**
