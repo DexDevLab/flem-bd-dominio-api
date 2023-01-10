@@ -1,6 +1,6 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.12-230109",
+  "version": "0.0.13-230110",
   "private": true,
   "license": "MIT",
   "scripts": {
