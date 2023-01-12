@@ -82,7 +82,7 @@ async function handler(req, res) {
               `orderBy='nome ASC'.`,
           });
         } else {
-          const query = await getFuncRhByFilter(req.body);
+          const query = await getFuncRhByFilter({...req.query, ...req.body});
           return res.status(200).json({ query });
         }
       } catch (err) {

@@ -1,17 +1,22 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.13-230110",
+  "version": "0.0.14-230112",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 4030",
+    "dev": "forever --minUptime 180000 ./src/services/forever/development.json",
+    "stop": "forever stopall && taskkill /f /im node.exe",
+    "dev:next": "next dev -p 4030",
     "build": "next build",
-    "start": "next start",
+    "start": "forever --minUptime 180000 ./src/services/forever/production.json",
+    "start:next": "next start",
     "lint": "next lint",
     "docs": "jsdoc --readme README.md -c jsdoc-config.json",
     "caniuse": "npm --depth 20 update --save caniuse-lite browserslist"
   },
   "dependencies": {
+    "cron": "^2.2.0",
+    "forever": "^4.0.3",
     "install": "^0.13.0",
     "next": "12.1.6",
     "react": "18.1.0",

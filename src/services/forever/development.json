@@ -1,0 +1,8 @@
+{
+    "index": 0,
+    "id": "app",
+    "append": true,
+    "watch": true,
+    "script": "node_modules/next/dist/bin/next",
+    "args": ["dev","-p", "4030"]
+}
