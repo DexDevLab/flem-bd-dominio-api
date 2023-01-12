@@ -12,7 +12,7 @@
 <a href="">[![Contributors](https://img.shields.io/github/contributors/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/graphs/contributors)</a><br>
 <a href="">![Last Commit](https://img.shields.io/github/last-commit/frtechdev/flem-bd-dominio-api)</a>
 <a href="">[![Fork](https://img.shields.io/github/forks/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/fork) </a>
-<a href="">![Version](https://img.shields.io/badge/version-0.0.13-005bff) </a>
+<a href="">![Version](https://img.shields.io/badge/version-0.0.14-005bff) </a>
 <a href="">[![license](https://img.shields.io/github/license/frtechdev/flem-bd-dominio-api)](https://github.com/frtechdev/flem-bd-dominio-api/LICENSE)</a>
 
 <br>
@@ -170,6 +170,16 @@ Para testar a aplicação, crie um arquivo .env com as seguintes variáveis de a
 ## Notas de versão
 
 </a>
+
+<br>
+
+### v0.0.14-230112
+
+- Atualização da Documentação
+- Correção do método POST em api/funcionarios para inclusão dos critérios de filtragem
+- Implementação da biblioteca Forever para gerenciamento do processo Node a fim de que este reinicialize em caso de erro com o conector Sybase
+- Alteração do parâmetro de script "yarn dev" para inicializar uma instância Forever invocando a aplicação
+- Adição de parâmetro de script "yarn stop" para finalizar corretamente o processo-filho do Forever e contornar o bug do Node no Windows
 
 <br>
 
