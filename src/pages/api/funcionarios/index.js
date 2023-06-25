@@ -1,10 +1,13 @@
 import { getFuncRhByFilter } from "controller/funcionarios";
 import { allowCors } from "services/apiAllowCors";
+import { exceptionHandler } from "utils/exceptionHandler";
 
 /**
  * Fornece Funcionários e lista de Funcionários, conforme critérios.
  * Os critérios servem como parâmetros para refinar a pesquisa conforme
  * necessário.
+ * @method handler
+ * @memberof module:funcionarios
  * Os parâmetros são:
  *
  * @param {Boolean} ativo - Se o funcionário está desligado (FALSE) ou
@@ -49,55 +52,50 @@ async function handler(req, res) {
       try {
         const { condition, ativo, orderBy, limit, ...columns } = req.query;
         if (!condition && Object.keys(columns).length > 1) {
-          return res.status(400).json({
-            status: 400,
-            message:
-              `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query` +
-              ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
-              ` Exemplo de requisição completa: /funcionarios?ativo=true&` +
-              `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
-              `orderBy='nome ASC'.`,
-          });
+          const error = new Error(
+            `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query`
+          );
+          error.status = 400;
+          error.message =
+            `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query` +
+            ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
+            ` Exemplo de requisição completa: /funcionarios?ativo=true&` +
+            `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
+            `orderBy='nome ASC'.`;
+          return exceptionHandler(error, res);
         } else {
-          const query = await getFuncRhByFilter(req.query);
+          const query = await getFuncRhByFilter({ ...req.query });
           return res.status(200).json({ query });
         }
-      } catch (err) {
-        console.log(err);
-        return res
-          .status(err.status || 500)
-          .json(`flem-ppe-backend: ${err.message}`);
+      } catch (e) {
+        return exceptionHandler(e, res);
       }
-    case "POST":
-      try {
-        const { condition, ativo, orderBy, limit, ...columns } = req.query;
-        if (!condition && Object.keys(columns).length > 1) {
-          return res.status(400).json({
-            status: 400,
-            message:
-              `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.body` +
-              ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
-              ` Exemplo de requisição completa: /funcionarios?ativo=true&` +
-              `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
-              `orderBy='nome ASC'.`,
-          });
-        } else {
-          const query = await getFuncRhByFilter({...req.query, ...req.body});
-          return res.status(200).json({ query });
-        }
-      } catch (err) {
-        console.log(err);
-        return res
-          .status(err.status || 500)
-          .json(`flem-ppe-backend: ${err.message}`);
-      }
+    // SE NÃO HOUVER APLICABILIDADE PARA ESTE POST, EXCLUIR.
+    // case "POST":
+    //   try {
+    //     const { condition, ativo, orderBy, limit, ...columns } = req.query;
+    //     if (!condition && Object.keys(columns).length > 1) {
+    //       return res.status(400).json({
+    //         status: 400,
+    //         message:
+    //           `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.body` +
+    //           ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
+    //           ` Exemplo de requisição completa: /funcionarios?ativo=true&` +
+    //           `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
+    //           `orderBy='nome ASC'.`,
+    //       });
+    //     } else {
+    //       const query = await getFuncRhByFilter({ ...req.query, ...req.body });
+    //       return res.status(200).json({ query });
+    //     }
+    //   } catch (err) {
+    //     console.log(err);
+    //     return res
+    //       .status(err.status || 500)
+    //       .json(`flem-ppe-backend: ${err.message}`);
+    //   }
     default:
-      const err = new Error("METHOD NOT ALLOWED");
-      err.status = 405;
-      console.log(err);
-      return res
-        .status(err.status || 405)
-        .json(`flem-ppe-backend: ${err.message}`);
+      return exceptionHandler(null, res);
   }
 }
 

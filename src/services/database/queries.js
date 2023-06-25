@@ -10,101 +10,104 @@ import {
 /**
  * Query SQL para receber todos os funcionários do BD Domínio.
  *
- * Colunas:
+ * @method getAllFuncRhDataQuery
+ * @memberof module:database
  *
+ * Colunas:
+ * 
  * @param {Integer} matriculaDominio Matrícula do funcionário
  * no sistema
- *
+ * 
  * @param {String} nome Nome do funcionário
- *
+ * 
  * @param {String} cargo Cargo
- *
+ * 
  * @param {Integer} codDepto Código do departamento
- *
+ * 
  * @param {String} departamento Nome do departamento
- *
+ * 
  * @param {Date} dataNasc Data de nascimento
- *
+ * 
  * @param {String} sexo Sexo do funcionário, de acordo com seu
  * documento de registro
- *
+ * 
  * @param {String} estadoCivil Estado Civil do funcionário, de
  * acordo com seu documento de registro
- *
+ * 
  * @param {Integer} dependentes Número de dependentes familiares
  * do funcionário, sob sua responsabilidade
- *
+ * 
  * @param {String} naturalidade Naturalidade do registro de nascimento
- *
+ * 
  * @param {String} ufNascimento UF do registro de nascimento
- *
+ * 
  * @param {String} cpf CPF
- *
+ * 
  * @param {String} identidade Registro Geral do documento de identidade
- *
+ * 
  * @param {String} escolaridade Nível de escolaridade
- *
+ * 
  * @param {String} email Email de contato
- *
+ * 
  * @param {String} email_alterativo Email de contato secundário
- *
+ * 
  * @param {String} pis Registro de PIS/NIS
- *
+ * 
  * @param {String} cartProf Registro da CTPS
- *
+ * 
  * @param {String} enderecoTipoLogradouro Tipo de logradouro
  * do endereço
- *
+ * 
  * @param {String} enderecoCep CEP do endereço
- *
+ * 
  * @param {String} enderecoLogradouro Logradouro do endereço
- *
+ * 
  * @param {String} enderecoNumero Número do endereço
- *
+ * 
  * @param {String} enderecoBairro Bairro do endereço
- *
+ * 
  * @param {String} enderecoMunicipio Município do endereço
- *
+ * 
  * @param {String} enderecoUf UF do endereço
- *
+ * 
  * @param {String} telefone Telefone de contato
- *
+ * 
  * @param {String} nomePai Nome do pai
- *
+ * 
  * @param {String} nomeMae Nome da mãe
- *
+ * 
  * @param {String} nomeConjuge Nome do Cônjuge
- *
+ * 
  * @param {Date} dataAdmissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {Integer} idSituacao Código da situação contratual
  * do funcionário de acordo com o sistema
- *
+ * 
  * @param {String} situacao Descrição da situação contratual
- *
+ * 
  * @param {String} desligado Informa se o funcionário
  * se encontra desligado ("S" para SIM e "N" para NÃO)
- *
+ * 
  * @param {Date} dataDemissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {String} possuiPlano Informa se o funcionário
  * possui plano de saúde ("S" para SIM e "N" para NÃO)
- *
+ * 
  * @param {String} possuiPlanoOdonto Informa se o funcionário
  * possui plano odontológico ("S" para SIM e "N" para NÃO)
- *
+ * 
  * @param {Integer} salario Salário do funcionário
- *
+ * 
  * @param {String} jornadaTrabalho Descrição da jornada
  * de trabalho
- *
+ * 
  * @param {String} funcCelular Número de telefone celular
  * corporativo / alternativo
- *
+ * 
  * @param {Array} filter Filtro com condições para pesquisa
- * detalhada na query
+ * detalhada na query 
  * @param {Object} queryLimit Define o limite dos resultados para
  * pesquisa na query.
  * @returns {String} Query para execução pelo controller para pesquisa
@@ -265,40 +268,44 @@ export function getAllFuncRhDataQuery(filter, queryLimit) {
     `;
 }
 
+
 /**
  * Query SQL para receber todos os funcionários do BD Domínio,
  * no escopo beneficiários (apenas dados utilizados para validação
  * no Portal PPE).
+ * 
+ * @method getAllBenefDataQuery
+ * @memberof module:database
  *
  * Colunas:
- *
+ * 
  * @param {Integer} matriculaDominio Matrícula do funcionário
  * no sistema
- *
+ * 
  * @param {String} nome Nome do funcionário
- *
+ * 
  * @param {Integer} codDepto Código do departamento
- *
+ * 
  * @param {String} departamento Nome do departamento
- *
+ * 
  * @param {String} cpf CPF
- *
+ * 
  * @param {Date} dataAdmissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {Integer} idSituacao Código da situação contratual
  * do funcionário de acordo com o sistema
- *
+ * 
  * @param {String} situacao Descrição da situação contratual
- *
+ * 
  * @param {String} desligado Informa se o funcionário
  * se encontra desligado ("S" para SIM e "N" para NÃO)
- *
+ * 
  * @param {Date} dataDemissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {Array} filter Filtro com condições para pesquisa
- * detalhada na query
+ * detalhada na query 
  * @param {Object} queryLimit Define o limite dos resultados para
  * pesquisa na query.
  * @returns {String} Query para execução pelo controller para pesquisa
@@ -359,50 +366,55 @@ export function getAllBenefDataQuery(filter, queryLimit) {
       `;
 }
 
+
+
 /**
  * Query SQL para listar todos os eventos de afastamento do funcionário,
  * seja por desligamento, férias ou licenças.
+ * 
+ * @method getAllAfastamentosDataQuery
+ * @memberof module:database
  *
  * Colunas:
- *
+ * 
  * @param {Integer} matriculaDominio Matrícula do funcionário
  * no sistema
- *
+ * 
  * @param {String} nome Nome do funcionário
- *
+ * 
  * @param {String} cargo Cargo
- *
+ * 
  * @param {Integer} codDepto Código do departamento
- *
+ * 
  * @param {String} departamento Nome do departamento
- *
+ * 
  * @param {String} cpf CPF
- *
+ * 
  * @param {Date} dataAdmissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {Integer} idSituacao Código da situação contratual
  * do funcionário de acordo com o sistema
- *
+ * 
  * @param {String} situacao Descrição da situação contratual
- *
+ * 
  * @param {String} desligado Informa se o funcionário
  * se encontra desligado ("S" para SIM e "N" para NÃO)
- *
+ * 
  * @param {Date} dataDemissao Data de Admissão do funcionário
  * no sistema.
- *
+ * 
  * @param {Date} afastamentoDataReal Data do início de um afastamento
  * específico
- *
+ * 
  * @param {Date} afastamentoNumDias Quantidade de dias que durou
  * este evento de afastamento
- *
+ * 
  * @param {String} funcCelular Número de telefone celular
  * corporativo / alternativo
- *
+ * 
  * @param {Array} filter Filtro com condições para pesquisa
- * detalhada na query
+ * detalhada na query 
  * @param {Object} queryLimit Define o limite dos resultados para
  * pesquisa na query.
  * @returns {String} Query para execução pelo controller para pesquisa

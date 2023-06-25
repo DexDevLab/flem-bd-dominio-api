@@ -1,33 +1,35 @@
 {
   "name": "flem-bd-dominio-api",
-  "version": "0.0.14-230112",
+  "version": "v1.0.0-230625",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "forever --minUptime 180000 ./src/services/forever/development.json",
-    "stop": "forever stopall && taskkill /f /im node.exe",
+    "dev": "forever --minUptime 180000 --spinSleepTime 1000 ./src/services/forever/development.json",
+    "stop": "forever stopall && pkill node || taskkill /IM node.exe /F",
     "dev:next": "next dev -p 4030",
-    "build": "next build",
-    "start": "forever --minUptime 180000 ./src/services/forever/production.json",
+    "build": "next build && next export -o dist",
+    "start": "forever --minUptime 180000 --spinSleepTime 1000 ./src/services/forever/production.json",
     "start:next": "next start",
     "lint": "next lint",
     "docs": "jsdoc --readme README.md -c jsdoc-config.json",
-    "caniuse": "npm --depth 20 update --save caniuse-lite browserslist"
+    "docker:build": "docker build . -t ghcr.io/frtechdev/flem-bd-dominio-api:latest",
+    "docker:push": "docker push ghcr.io/frtechdev/flem-bd-dominio-api:latest",
+    "caniuse": "npm update --save caniuse-lite browserslist",
+    "clean": "yarn autoclean --force",
+    "git:clear": "bash cleargitcache.sh"
   },
   "dependencies": {
-    "cron": "^2.2.0",
-    "forever": "^4.0.3",
     "install": "^0.13.0",
-    "next": "12.1.6",
+    "next": "12.2.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "request": "^2.88.2",
     "sybase-promised": "^1.0.4"
   },
   "devDependencies": {
-    "clean-jsdoc-theme": "^3.3.3",
+    "clean-jsdoc-theme": "^4.2.9",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
-    "jsdoc": "^3.6.10"
+    "jsdoc": "^4.0.2"
   }
 }

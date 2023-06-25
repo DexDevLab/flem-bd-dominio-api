@@ -1,6 +1,9 @@
 /**
  * Parâmetro SQL que retorna a descrição da situação
  * contratual do funcionário através do ID da situação.
+ * @constant situacao
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const situacao = `
     CASE idSituacao 
@@ -123,6 +126,9 @@ export const situacao = `
 /**
  * Parâmetro SQL que retorna o critério para
  * buscar funcionários desligados.
+ * @constant desligado
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const desligado = `
     CASE 
@@ -135,6 +141,9 @@ export const desligado = `
 /**
  * Parâmetro SQL que retorna o tipo de logradouro
  * do endereço do funcionário.
+ * @constant enderecoTipoLogradouro
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const enderecoTipoLogradouro = `
     CASE e.TIPO_ENDERECO 
@@ -340,6 +349,9 @@ export const enderecoTipoLogradouro = `
 /**
  * Parâmetro SQL que retorna a descrição da escolaridade
  * do funcionário através do código do grau de instrução.
+ * @constant escolaridade
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const escolaridade = `
     CASE e.grau_instrucao 
@@ -375,6 +387,9 @@ export const escolaridade = `
 /**
  * Parâmetro SQL que retorna o estado civil do
  * funcionário baseado no código do estado civil.
+ * @constant estadoCivil
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const estadoCivil = `
     CASE estado_civil
@@ -399,6 +414,9 @@ export const estadoCivil = `
 /**
  * Parâmetro SQL que retorna o sexo do funcionário
  * descrito no BD.
+ * @constant sexo
+ * @memberof module:database
+ * @returns {String} Segmento de query
  */
 export const sexo = `
     CASE sexo

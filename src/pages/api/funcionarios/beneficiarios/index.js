@@ -1,5 +1,6 @@
 import { getFuncBenefByFilter } from "controller/beneficiarios";
 import { allowCors } from "services/apiAllowCors";
+import { exceptionHandler } from "utils/exceptionHandler";
 
 /**
  * Fornece Funcionários e lista de Funcionários com dados voltados
@@ -7,6 +8,8 @@ import { allowCors } from "services/apiAllowCors";
  * do PPE, conforme critérios.
  * Os critérios servem como parâmetros para refinar a pesquisa conforme
  * necessário.
+ * @method handler
+ * @memberof module:beneficiarios
  * Os parâmetros são:
  *
  * @param {Boolean} ativo Define se o funcionário está desligado (FALSE) ou
@@ -52,30 +55,28 @@ async function handler(req, res) {
       // SOLICITAÇÕES DEVEM VIR COM UMA CONDIÇÃO LÓGICA QUANDO COM
       // MAIS DE 1 CRITÉRIO DE PESQUISA
       if (!condition && Object.keys(columns).length > 1) {
-        return res.status(400).json({
-          status: 400,
-          message:
-            `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query` +
-            ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
-            ` Exemplo de requisição completa: /beneficiarios?ativo=true&` +
-            `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
-            `orderBy='nome ASC'.`,
-        });
+        const error = new Error(
+          `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query`
+        );
+        error.status = 400;
+        error.message =
+          `BAD REQUEST - A chamada requer 'CONDITION' como parâmetro em req.query` +
+          ` quando se realizam pesquisas de filtro com mais de 1 critério.` +
+          ` Exemplo de requisição completa: /beneficiarios?ativo=true&` +
+          `matriculaDominio=['1200','600']&codDepto='1000'&condition='AND'&` +
+          `orderBy='nome ASC'.`;
+        return exceptionHandler(error, res);
       } else {
         const query = await getFuncBenefByFilter(req.query);
         return res.status(200).json({ query });
       }
     } else {
       // SE FOI FEITO OUTRO MÉTODO ALÉM DE GET
-      return res
-        .status(403)
-        .json({ status: 403, message: "METHOD NOT ALLOWED" });
+      return exceptionHandler(null, res);
     }
-  } catch (error) {
+  } catch (e) {
     // ERRO GERAL DE REQUEST
-    return res
-      .status(500)
-      .json({ status: 500, message: "API ERROR", error: error.message });
+    return exceptionHandler(error, res);
   }
 }
 

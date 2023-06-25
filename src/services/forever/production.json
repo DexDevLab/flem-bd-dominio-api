@@ -1,7 +1,7 @@
 {
-    "index": 0,
-    "id": "app",
-    "append": true,
-    "watch": true,
-    "script": "server.js"
+  "index": 0,
+  "id": "app",
+  "append": true,
+  "watch": true,
+  "script": "server.js"
 }

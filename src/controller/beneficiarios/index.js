@@ -1,16 +1,12 @@
 import executeQuery from "services/database/executeQuery";
 import { getAllBenefDataQuery } from "services/database/queries";
 import { queryComposer } from "services/database/queryComposer";
-import { unmaskCPF } from "utils";
-import {
-  parseArrayToQueryString,
-  parseArrayToQueryStringEquals,
-} from "utils/parsers";
-
 
 /**
  * Lista todos os dados de um funcionário, no escopo de beneficiário,
  * baseado em um critério de pesquisa.
+ * @method getFuncBenefByFilter
+ * @memberof module:beneficiarios
  *
  * @param {String} filter String contendo os critérios de pesquisa informados
  * na query da requisição, no formato de Query String para consulta no BD.

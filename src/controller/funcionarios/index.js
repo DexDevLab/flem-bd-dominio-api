@@ -1,10 +1,11 @@
 import executeQuery from "services/database/executeQuery";
 import { getAllFuncRhDataQuery } from "services/database/queries";
 import { queryComposer } from "services/database/queryComposer";
-import { unmaskCPF } from "utils";
 
 /**
  * Lista todos os dados gerais de um funcionário, baseado em um critério de pesquisa.
+ * @method getFuncRhByFilter
+ * @memberof module:funcionarios
  *
  * @param {String} filter String contendo os critérios de pesquisa informados
  * na query da requisição, no formato de Query String para consulta no BD.
