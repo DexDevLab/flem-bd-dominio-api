@@ -1,12 +1,21 @@
+import { unmaskCPF } from "utils";
+import {
+  parseArrayToQueryString,
+  parseArrayToQueryStringEquals,
+} from "utils/parsers";
+
 /**
  * Função para compor o filtro da query. Caso a requisição faça uma solicitação
  * ao BD utilizando critérios de pesquisa ("condition") e um objeto de filtro,
  * aplica a alteração a um objeto de filtro para realizar a pesquisa corretamente.
  * 
+ * @method queryComposer
+ * @memberof module:database
+ *
  * @param {Boolean} includeAfastamentos Se a query deverá mencionar ou incluir critérios
  * sobre Afastamento de Funcionários, marque TRUE nesta variável; caso contrário, marque
  * como FALSE
- * 
+ *
  * @param {Object} criteria Conjunto de critérios de pesquisa(ver abaixo)
  *
  * @param {Boolean} ativo Se o funcionário está desligado (FALSE) ou

@@ -1,0 +1,12 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#1073cf2d",
+    "editor.lineHighlightBorder": "#9fced11f",
+    "activityBar.background": "#063434",
+    "titleBar.activeBackground": "#084848",
+    "titleBar.activeForeground": "#EFFDFD"
+  },
+  "yaml.schemas": {
+    "https://yarnpkg.com/configuration/yarnrc.json": "file:///e%3A/Git/Repositories/flem-bd-dominio-api/.yarnclean"
+  }
+}

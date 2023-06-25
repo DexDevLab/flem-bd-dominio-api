@@ -9,7 +9,10 @@ import {
 
 /**
  * Query SQL para receber todos os funcionários do BD Domínio.
- * 
+ *
+ * @method getAllFuncRhDataQuery
+ * @memberof module:database
+ *
  * Colunas:
  * 
  * @param {Integer} matriculaDominio Matrícula do funcionário
@@ -271,6 +274,9 @@ export function getAllFuncRhDataQuery(filter, queryLimit) {
  * no escopo beneficiários (apenas dados utilizados para validação
  * no Portal PPE).
  * 
+ * @method getAllBenefDataQuery
+ * @memberof module:database
+ *
  * Colunas:
  * 
  * @param {Integer} matriculaDominio Matrícula do funcionário
@@ -366,6 +372,9 @@ export function getAllBenefDataQuery(filter, queryLimit) {
  * Query SQL para listar todos os eventos de afastamento do funcionário,
  * seja por desligamento, férias ou licenças.
  * 
+ * @method getAllAfastamentosDataQuery
+ * @memberof module:database
+ *
  * Colunas:
  * 
  * @param {Integer} matriculaDominio Matrícula do funcionário

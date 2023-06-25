@@ -2,9 +2,11 @@
  * Converte um Array de objetos para um Array de Inteiros. Utilizado
  * para criar os objetos de critério de pesquisa ao BD utilizando
  * queries do Prisma.
+ * @method parseArrayToInteger
+ * @memberof module:utils
  * @param {Array} raw Array contendo valores a serem
  * convertidos para um Array de objetos do tipo Inteiro.
- * @returns Array de objetos do tipo Inteiro.
+ * @returns {Array} Array de objetos do tipo Inteiro.
  */
 const parseArrayToInteger = (raw) => {
   try {
@@ -28,12 +30,14 @@ const parseArrayToInteger = (raw) => {
   }
 };
 
-export {parseArrayToInteger};
+export { parseArrayToInteger };
 
 /**
  * Converte um Array de objetos para um Array de Strings. Utilizado
  * para criar os objetos de critério de pesquisa ao BD utilizando
  * queries do Prisma.
+ * @method parseArrayToString
+ * @memberof module:utils
  * @param {Array} raw Array contendo valores a serem
  * convertidos para um Array de objetos do tipo String.
  * @returns Array de objetos do tipo String.
@@ -51,12 +55,14 @@ const parseArrayToString = (raw, key) => {
     return [{ [key]: { contains: raw } }];
   }
 };
-export {parseArrayToString};
+export { parseArrayToString };
 
 /**
  * Converte um Array de objetos para Strings, devidamente formatado.
  * Utilizado para criar os objetos de critério de pesquisa ao BD utilizando
  * queries SQL.
+ * @method parseArrayToQueryString
+ * @memberof module:utils
  * @param {Array} raw Array contendo valores a serem
  * convertidos para uma String.
  * @returns String devidamente formatada para compor Query String.
@@ -70,12 +76,14 @@ const parseArrayToQueryString = (raw, key) => {
     return `'%${raw.toString().replaceAll('"', "")}%')`;
   }
 };
-export {parseArrayToQueryString};
+export { parseArrayToQueryString };
 
 /**
  * Converte um Array de objetos para Strings, devidamente formatado.
  * Utilizado para criar os objetos de critério de pesquisa ao BD utilizando
  * queries SQL.
+ * @method parseArrayToQueryStringEquals
+ * @memberof module:utils
  * @param {Array} raw Array contendo valores a serem
  * convertidos para uma String.
  * @returns String devidamente formatada para compor Query String.
@@ -84,10 +92,10 @@ const parseArrayToQueryStringEquals = (raw, key) => {
   try {
     const initialParse = JSON.parse(raw);
     const quotedItems = initialParse.map((item) => `'${item}'`);
-    return `(${quotedItems.join(`,`)})`
+    return `(${quotedItems.join(`,`)})`;
   } catch (e) {
     return `('${raw.toString().replaceAll('"', "")}')`;
   }
 };
 
-export {parseArrayToQueryStringEquals};
+export { parseArrayToQueryStringEquals };

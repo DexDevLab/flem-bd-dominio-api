@@ -1,8 +1,10 @@
 /**
  * Máscara de CPF. Converte String no formato "12345678900" para o CPF
  * nacional ("123.456.789-00").
+ * @method maskCPF
+ * @memberof module:masks
  * @param {String} cpf String contendo o CPF ou um array de CPFs
- * @returns CPF ou array de CPFs devidamente formatado.
+ * @returns {*} CPF (String) ou array de CPFs (Array de Strings) devidamente formatado.
  */
 export function maskCPF(cpf) {
   if (Array.isArray(cpf)) {
@@ -18,8 +20,10 @@ export function maskCPF(cpf) {
 /**
  * Máscara reversa de CPF. Converte String no formato "123.456.789-00" para o
  * formato sem caracteres especiais ("12345678900").
+ * @method unmaskCPF
+ * @memberof module:masks
  * @param {String} cpf String contendo o CPF ou um array de CPFs
- * @returns CPF ou array de CPFs sem formatação
+ * @returns {*} CPF (String) ou array de CPFs (Array de Strings) sem formatação
  */
 export function unmaskCPF(cpf) {
   if (Array.isArray(cpf)) {
@@ -37,8 +41,10 @@ export function unmaskCPF(cpf) {
  * ou "joao da silva" em "Joao da Silva".
  * Utiliza uma lista de exceções que pode ser modificada, compreendendo todos os pronomes
  * comuns ou trechos que não devem ser capitalizados.
+ * @method maskCapitalize
+ * @memberof module:masks
  * @param {String} string Objeto tipo String contendo o texto a ser capitalizado
- * @returns String devidamente formatada
+ * @returns {String} String devidamente formatada
  */
 export function maskCapitalize(string) {
   const exceptions = [
@@ -76,8 +82,10 @@ export function maskCapitalize(string) {
 /**
  * Máscara de Data que converte um objeto Date sem locale em uma String
  * contendo o valor da data.
+ * @method maskDate
+ * @memberof module:masks
  * @param {Date} date Um Objeto Date de uma data/hora.
- * @returns Data no formato String.
+ * @returns {String} Data no formato String.
  */
 export function maskDate(date) {
   date = date.toString();
@@ -100,10 +108,16 @@ export function maskDate(date) {
 }
 
 /**
- * Converte String para String com caracteres especiais no formato do
- * CPF nacional ("123.456.789-00").
- * @param {String} cpf String contendo CPF.
- * @returns String formatada.
+ * Normaliza uma String, isto é, coloca ela em um formato ideal
+ * para ser utilizada para comparação ou normalizar formatações.
+ * @method formatCPF
+ * @memberof module:utils
+ * @param {Boolean} trim se TRUE, remove espaços antes de realizar
+ * a normalização (exemplo: João Márcio da Silva => joaomarciodasilva).
+ * Se FALSE, não remove os espaços caso existam
+ * (exemplo: João Márcio da Silva => joao marcio da silva)
+ * @param {String} str uma String que precisa ser normalizada.
+ * @returns {String} String normalizada.
  */
 function formatCPF(cpf) {
   return cpf
@@ -116,6 +130,8 @@ function formatCPF(cpf) {
 /**
  * Normaliza uma String, isto é, coloca ela em um formato ideal
  * para ser utilizada para comparação ou normalizar formatações.
+ * @method normalizeString
+ * @memberof module:utils
  * @param {Boolean} trim se TRUE, remove espaços antes de realizar
  * a normalização (exemplo: João Márcio da Silva => joaomarciodasilva).
  * Se FALSE, não remove os espaços caso existam

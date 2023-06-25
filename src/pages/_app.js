@@ -1,5 +1,3 @@
-import "../styles/globals.css";
-
 /**
  * Componente de inicialização da aplicação.
  * @param {Component} props propriedades dos Componentes visuais.
